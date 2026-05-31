@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: xdu-partner
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -u server.py
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: xdu-partner-db
+          property: connectionString
+
+databases:
+  - name: xdu-partner-db
+    databaseName: xdu_partner
+    user: xdu_partner

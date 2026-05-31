@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XDU 搭子 - 西电校园搭子匹配</title>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#hero" aria-label="XDU 搭子首页">
+      <span class="brand-mark">X</span>
+      <span>XDU 搭子</span>
+    </a>
+    <nav class="nav">
+      <a href="#publish">发布</a>
+      <a href="#matches">匹配</a>
+      <a href="#how">流程</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-media" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="eyebrow">西安电子科技大学校园搭子微应用</p>
+        <h1>找饭搭子、自习搭子、跑步搭子和打球搭子。</h1>
+        <p class="hero-copy">填写一次需求，数据进入服务端数据库，系统按时间、地点、偏好和个人信息从真实发布中推荐两位同学。</p>
+        <a class="hero-action" href="#publish">开始招募</a>
+      </div>
+    </section>
+
+    <section class="workspace" id="publish">
+      <div class="section-heading">
+        <p class="eyebrow">Recruit</p>
+        <h2>发布你的搭子需求</h2>
+      </div>
+
+      <div class="app-shell">
+        <aside class="profile-panel">
+          <div class="auth-head">
+            <h3>用户注册</h3>
+            <button id="logoutBtn" class="text-btn" type="button" hidden>退出</button>
+          </div>
+          <div id="userSummary" class="user-summary" hidden></div>
+          <div class="auth-tabs" role="tablist" aria-label="账户操作">
+            <button class="auth-tab is-active" type="button" data-auth-tab="register">注册</button>
+            <button class="auth-tab" type="button" data-auth-tab="login">登录</button>
+          </div>
+          <form id="registerForm" class="auth-form">
+            <label>
+              学号
+              <input id="regStudentId" type="text" placeholder="例如：23010100001" autocomplete="username">
+            </label>
+            <label>
+              密码
+              <input id="regPassword" type="password" placeholder="至少 6 位" autocomplete="new-password">
+            </label>
+            <label>
+              昵称
+              <input id="regNickname" type="text" placeholder="例如：小西电" autocomplete="name">
+            </label>
+            <label>
+              院系
+              <select id="regDepartment">
+                <option value="">请选择院系</option>
+                <option>通信工程学院</option>
+                <option>电子工程学院</option>
+                <option>计算机科学与技术学院</option>
+                <option>人工智能学院</option>
+                <option>网络与信息安全学院</option>
+                <option>经济与管理学院</option>
+                <option>人文学院</option>
+                <option>数学与统计学院</option>
+              </select>
+            </label>
+            <div class="form-row">
+              <label>
+                年级
+                <select id="regGrade">
+                  <option value="">请选择</option>
+                  <option>大一</option>
+                  <option>大二</option>
+                  <option>大三</option>
+                  <option>大四</option>
+                  <option>研一</option>
+                  <option>研二</option>
+                  <option>研三</option>
+                </select>
+              </label>
+              <label>
+                性别
+                <select id="regGender">
+                  <option value="">请选择</option>
+                  <option>男</option>
+                  <option>女</option>
+                  <option>不公开</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              联系方式
+              <input id="regContact" type="text" placeholder="手机号 / QQ / 微信">
+            </label>
+            <button class="submit-btn" type="submit">注册并登录</button>
+          </form>
+          <form id="loginForm" class="auth-form" hidden>
+            <label>
+              学号
+              <input id="loginStudentId" type="text" autocomplete="username">
+            </label>
+            <label>
+              密码
+              <input id="loginPassword" type="password" autocomplete="current-password">
+            </label>
+            <button class="submit-btn" type="submit">登录</button>
+          </form>
+          <p id="authHint" class="form-hint" role="status"></p>
+        </aside>
+
+        <section class="request-panel">
+          <h3>选择需求</h3>
+          <div class="type-grid" role="radiogroup" aria-label="搭子类型">
+            <button class="type-card is-active" type="button" data-type="meal" aria-pressed="true">
+              <span>🍜</span>
+              <strong>饭搭子</strong>
+              <small>约饭、探店、拼桌</small>
+            </button>
+            <button class="type-card" type="button" data-type="study" aria-pressed="false">
+              <span>📚</span>
+              <strong>自习搭子</strong>
+              <small>图书馆、教室、互相监督</small>
+            </button>
+            <button class="type-card" type="button" data-type="run" aria-pressed="false">
+              <span>🏃</span>
+              <strong>跑步搭子</strong>
+              <small>操场、绿道、配速同行</small>
+            </button>
+            <button class="type-card" type="button" data-type="ball" aria-pressed="false">
+              <span>🏀</span>
+              <strong>打球搭子</strong>
+              <small>篮球、羽毛球、乒乓球</small>
+            </button>
+          </div>
+
+          <form id="requestForm" class="dynamic-form">
+            <div id="dynamicFields"></div>
+            <label>
+              补充说明
+              <textarea id="note" rows="3" placeholder="例如：希望准时一点，可以 AA，接受新手"></textarea>
+            </label>
+            <button class="submit-btn" type="submit">发布招募并匹配</button>
+          </form>
+          <p id="formHint" class="form-hint" role="status"></p>
+        </section>
+      </div>
+    </section>
+
+    <section class="matches-section" id="matches">
+      <div class="section-heading">
+        <p class="eyebrow">Match</p>
+        <h2>系统通知双方</h2>
+        <p>发布后会从数据库展示匹配度最高的两位同学。接受后生成待确认状态，拒绝后自动顺延下一位。</p>
+      </div>
+      <div class="match-board">
+        <div id="notice" class="notice">
+          <strong>等待发布</strong>
+          <span>填写需求后，这里会出现系统通知。</span>
+        </div>
+        <div id="matchList" class="match-list"></div>
+      </div>
+    </section>
+
+    <section class="process" id="how">
+      <div>
+        <p class="eyebrow">Flow</p>
+        <h2>从发布到成行，只保留必要步骤。</h2>
+      </div>
+      <ol>
+        <li>
+          <span>01</span>
+          <strong>注册资料</strong>
+          <p>填写院系、年级、性别等基础信息。</p>
+        </li>
+        <li>
+          <span>02</span>
+          <strong>发布需求</strong>
+          <p>按饭、自习、跑步、打球填写对应细节。</p>
+        </li>
+        <li>
+          <span>03</span>
+          <strong>双向确认</strong>
+          <p>系统推送两个高匹配对象，双方选择接受或继续匹配。</p>
+        </li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <span>XDU 搭子</span>
+    <span>为校园日常做一个轻巧的连接器。</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
