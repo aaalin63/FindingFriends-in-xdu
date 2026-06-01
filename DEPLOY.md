@@ -5,21 +5,29 @@
 - 本地开发：不设置 `DATABASE_URL`，自动使用 `xdu_partner.db`。
 - 云端部署：设置 `DATABASE_URL`，自动使用 PostgreSQL 云数据库。
 
-## Supabase + Render 部署
+## 推荐：Supabase + Vercel
 
 1. 在 Supabase 创建项目。
 2. 进入 Supabase 的数据库连接页面，复制 PostgreSQL 连接串。
-3. 在 Render 新建 Blueprint，选择这个 GitHub 仓库。
-4. Render 会读取 `render.yaml` 创建 Web Service。
-5. 在 Render 的环境变量里填写：
+3. 在 Vercel 导入这个 GitHub 仓库。
+4. Framework Preset 选择 `Other`。
+5. 在 Vercel 的环境变量里填写：
 
 ```bash
 DATABASE_URL=你的 Supabase PostgreSQL 连接串
 ```
 
-6. 部署完成后访问 Render 提供的公网 URL。
+6. 点击 Deploy，部署完成后访问 Vercel 提供的公网 URL。
 
-如果部署平台不支持 IPv6，优先使用 Supabase 的 Session Pooler 连接串。
+如果部署平台不支持 IPv6，优先使用 Supabase 的 Session Pooler 连接串。Supabase 连接串通常还需要带上 `sslmode=require`。
+
+Vercel 部署使用：
+
+- `vercel.json`：把请求转发到 Python API。
+- `api/index.py`：Flask serverless 后端，同时提供静态页面和 API。
+- `requirements.txt`：安装 Flask 和 PostgreSQL 驱动。
+
+## 备选：Render
 
 ## 其他云平台
 
