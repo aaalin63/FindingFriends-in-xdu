@@ -5,12 +5,21 @@
 - 本地开发：不设置 `DATABASE_URL`，自动使用 `xdu_partner.db`。
 - 云端部署：设置 `DATABASE_URL`，自动使用 PostgreSQL 云数据库。
 
-## Render 一键部署思路
+## Supabase + Render 部署
 
-1. 把本项目推送到 GitHub。
-2. 在 Render 新建 Blueprint，选择这个仓库。
-3. Render 会读取 `render.yaml`，自动创建 Web Service 和 PostgreSQL 数据库。
-4. 部署完成后访问 Render 提供的公网 URL。
+1. 在 Supabase 创建项目。
+2. 进入 Supabase 的数据库连接页面，复制 PostgreSQL 连接串。
+3. 在 Render 新建 Blueprint，选择这个 GitHub 仓库。
+4. Render 会读取 `render.yaml` 创建 Web Service。
+5. 在 Render 的环境变量里填写：
+
+```bash
+DATABASE_URL=你的 Supabase PostgreSQL 连接串
+```
+
+6. 部署完成后访问 Render 提供的公网 URL。
+
+如果部署平台不支持 IPv6，优先使用 Supabase 的 Session Pooler 连接串。
 
 ## 其他云平台
 

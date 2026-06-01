@@ -4,13 +4,7 @@ services:
     env: python
     buildCommand: pip install -r requirements.txt
     startCommand: python -u server.py
+    healthCheckPath: /
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
-          name: xdu-partner-db
-          property: connectionString
-
-databases:
-  - name: xdu-partner-db
-    databaseName: xdu_partner
-    user: xdu_partner
+        sync: false
